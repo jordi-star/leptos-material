@@ -1,0 +1,127 @@
+.leptos-material-datepicker {
+	background-color: var(--md-sys-color-surface-container-high);
+	color: var(--md-sys-color-on-surface);
+	--md-elevation-level: 3;
+    border-radius: 12px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    width: 360px;
+    height: auto;
+	transition: max-height 500ms;
+	transition-timing-function: cubic-bezier(0.05, 0.7, 0.1, 1.0);
+    max-height: 456px;
+    position: relative;
+	display: flex;
+	flex-flow: column;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.datepicker-header {
+    width: 100%;
+    height: 40px;
+    padding-left: 8px;
+    padding-right: 4px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.datepicker-footer {
+    box-sizing: border-box;
+    width: 100%;
+    height: 40px;
+    padding-left: 8px;
+    padding-right: 4px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: end;
+    gap: 8px;
+}
+
+.dropdown-icon {
+    top: 12px;
+}
+
+.date-grid{
+    display: grid;
+    grid-template-columns: repeat(7, 40px);
+    gap: 8px;
+    column-width: 40px;
+    box-sizing: border-box;
+    padding-left: 16px;
+    padding-right: 16px;
+    /* row-: 40px; */
+}
+
+.days-of-week {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: subgrid;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.day-number {
+    background: none;
+    border-radius: 100%;
+    border: none;
+    position: relative;
+    width: 40px;
+    height: 40px;
+}
+
+.day-outside-month {
+    color: var(--md-sys-color-on-surface-variant);
+}
+
+.day-today {
+	border-width: 1px;
+	border-style: solid;
+	border-color: var(--md-sys-color-primary);
+	color: var(--md-sys-color-primary);
+}
+
+.day-selected {
+	background-color: var(--md-sys-color-primary);
+	color: var(--md-sys-color-on-primary)
+}
+
+.date-picker-menu {
+	border-top: 1px solid var(--md-sys-color-outline-variant);
+	color: var(--md-sys-color-on-surface);
+	margin-top: 30px;
+	overflow-y: scroll;
+	/* overflow-inline: ; */
+	height: max-content;
+	margin-bottom: 20px;
+}
+
+.date-picker-menu-item {
+	width: 100%;
+	display:block;
+	height: 48px;
+	border: none;
+	background: none;
+    box-sizing: border-box;
+    padding-left: calc(16px + 24px + 16px); /* Left padding + Icon Size + Icon Padding */
+    padding-right: 16px;
+	text-align: start;
+	position: relative;
+}
+
+.date-picker-menu-item.selected {
+	background-color: var(--md-sys-color-surface-variant);
+}
+
+.date-picker-menu-icon {
+	font-size: 24px;
+	display: inline-block;
+	position: absolute;
+	left: 16px;
+}

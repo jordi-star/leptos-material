@@ -1,0 +1,44 @@
+[package]
+name = "leptos-material"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+chrono = "0.4.38"
+web-sys = { version = "0.3.69", features = [
+	"ScrollIntoViewOptions",
+	"ScrollLogicalPosition",
+	"HtmlElement",
+	"HtmlDivElement",
+] }
+leptos = "0.6.12"
+leptos_meta = "0.6.12"
+# wasm-bindgen = { version = "0.2.92", git = "https://github.com/rustwasm/wasm-bindgen" }
+# web-sys = { version = "0.3.69", features = ["Element", "InputEvent", "Node"] }
+
+[features]
+elevation = []
+checkbox = []
+textfield = []
+icon = []
+button = []
+iconbutton = []
+progress = []
+datepicker = ["elevation"]
+select = []
+card = ["elevation"]
+chips = []
+full = [
+	"checkbox",
+	"textfield",
+	"button",
+	"icon",
+	"iconbutton",
+	"card",
+	"elevation",
+	"progress",
+	"datepicker",
+	"select",
+	"chips",
+]
+default = ["full"]
