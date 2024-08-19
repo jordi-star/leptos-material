@@ -15,6 +15,33 @@ instead, many components use `attr:attribute_name=value` syntax in the `view` ma
 >
 ```
 
+## Using
+Use the `UseMaterialWebComponents` component at the root of your main component to initialize MWC.
+For example, if you have a main component named `App`, your code will look like this:
+```rust
+#[component]
+fn App() -> impl IntoView {
+	view! {
+		<UseMaterialWebComponents/>
+		... // The rest of your site
+	}
+}
+```
+Then, enable the features for any components you'd like to use.
+For example, to use the `Icon` component, you'd enable the `icon` feature.
+Finally, you can use the component in your code.
+```rust
+#[component]
+fn App() -> impl IntoView {
+	view! {
+		<UseMaterialWebComponents/>
+		<h1>{"Hello from leptos-material!"}</h1>
+		<Icon name="mood" />
+	}
+}
+```
+
+
 ## Features
 Every component is gated behind a feature. This library only bundles what you need for each component used. When a feature for a component is added, leptos-material will automatically bundle that component's MWC code at compile time.
 
