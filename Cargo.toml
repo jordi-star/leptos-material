@@ -2,7 +2,7 @@
 name = "leptos-material"
 version = "0.1.0"
 edition = "2021"
-license = "Apache-2.0"
+license = "MIT"
 
 [dependencies]
 chrono = "0.4.38"
@@ -14,8 +14,6 @@ web-sys = { version = "0.3.69", features = [
 ] }
 leptos = "0.6.12"
 leptos_meta = "0.6.12"
-# wasm-bindgen = { version = "0.2.92", git = "https://github.com/rustwasm/wasm-bindgen" }
-# web-sys = { version = "0.3.69", features = ["Element", "InputEvent", "Node"] }
 
 [features]
 elevation = []
