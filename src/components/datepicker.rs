@@ -67,9 +67,9 @@ fn DatePickerHeaderButton(
     increment_action: impl Fn(MouseEvent) + 'static + Clone,
     state_to_set: DatePickerState,
 ) -> impl IntoView {
-    let arrows_visible = move || state() == DatePickerState::SelectDay;
+    let arrows_visible = move || state.get() == DatePickerState::SelectDay;
     let button_dimmed_style = move || {
-        if state() != state_to_set && state() != DatePickerState::SelectDay {
+        if state.get() != state_to_set && state.get() != DatePickerState::SelectDay {
             "opacity: 0.5;"
         } else {
             ""
@@ -89,7 +89,7 @@ fn DatePickerHeaderButton(
             style=ButtonStyle::Text
             attr:style=button_dimmed_style
             on:click=move |_| {
-                if state_to_set == state() {
+                if state_to_set == state.get() {
                     state.set(DatePickerState::SelectDay);
                 } else {
                     state.set(state_to_set);
@@ -100,13 +100,13 @@ fn DatePickerHeaderButton(
             {text}
 
             {move || {
-                let icon = if state_to_set == state() {
+                let icon = if state_to_set == state.get() {
                     "arrow_drop_up"
                 } else {
                     "arrow_drop_down"
                 };
-                let show_dropdown_arrow = state() == DatePickerState::SelectDay
-                    || state() == state_to_set;
+                let show_dropdown_arrow = state.get() == DatePickerState::SelectDay
+                    || state.get() == state_to_set;
                 show_dropdown_arrow.then(|| view! { <Icon name=icon/> })
             }}
 
@@ -126,7 +126,7 @@ fn DatePickerMenuButton(#[prop(into)] value: String, selected: bool) -> impl Int
     let button_node_ref = create_node_ref::<Button>();
     create_effect(move |v| {
         if selected {
-            button_node_ref()
+            button_node_ref.get()
                 .unwrap()
                 .scroll_into_view_with_scroll_into_view_options(
                     ScrollIntoViewOptions::new()
@@ -211,20 +211,20 @@ pub fn DatePicker(
     );
     let current_year = create_rw_signal(selected_date.get_untracked().year_ce().1);
     let days_in_month =
-        Signal::derive(move || days_in_year_month(current_year.get() as i32, current_month()));
+        Signal::derive(move || days_in_year_month(current_year.get() as i32, current_month.get()));
     let days_in_last_month = Signal::derive(move || {
-        days_in_year_month(current_year.get() as i32, current_month().pred())
+        days_in_year_month(current_year.get() as i32, current_month.get().pred())
     });
     let first_day_of_month = Signal::derive(move || {
         NaiveDate::from_ymd_opt(
             current_year.get() as i32,
-            current_month().number_from_month(),
+            current_month.get().number_from_month(),
             1,
         )
         .unwrap()
     });
     let last_month_day_buttons = move || {
-        let prev_month = current_month().pred();
+        let prev_month = current_month.get().pred();
         (0..(first_day_of_month.get().weekday().num_days_from_sunday()))
             .rev()
             .map(move |number_of_days_since_sunday| {
@@ -266,11 +266,11 @@ pub fn DatePicker(
     let next_month_day_buttons = move || {
         let last_day_of_month = NaiveDate::from_ymd_opt(
             current_year.get() as i32,
-            current_month().number_from_month(),
+            current_month.get().number_from_month(),
             days_in_month.get(),
         )
         .unwrap();
-        let next_month = current_month().succ();
+        let next_month = current_month.get().succ();
         let remaining_weekdays_after_current_month =
             7 - last_day_of_month.weekday().number_from_sunday();
         (1..remaining_weekdays_after_current_month + 1).map(move |day| {
@@ -317,7 +317,7 @@ pub fn DatePicker(
             .collect_view()
     };
     let year_options = move || {
-        let start_year = current_year();
+        let start_year = current_year.get();
         let min = start_year - YEARS_TO_SHOW_BEFORE_AFTER_CURRENT;
         let max = start_year + YEARS_TO_SHOW_BEFORE_AFTER_CURRENT;
         (min..(max + 1))
@@ -338,28 +338,28 @@ pub fn DatePicker(
             .collect_view()
     };
     let abbreviated_current_month_name =
-        Signal::derive(move || get_abbreviated_month_name(&current_month()).to_string());
-    let year_str = Signal::derive(move || current_year().to_string());
+        Signal::derive(move || get_abbreviated_month_name(&current_month.get()).to_string());
+    let year_str = Signal::derive(move || current_year.get().to_string());
     let decrement_month_on_click = move |_: MouseEvent| {
-        if current_month() == Month::January {
-            current_year.set(current_year() - 1);
+        if current_month.get() == Month::January {
+            current_year.set(current_year.get() - 1);
         }
-        current_month.set(current_month().pred());
+        current_month.set(current_month.get().pred());
     };
     let increment_month_on_click = move |_: MouseEvent| {
-        if current_month() == Month::December {
-            current_year.set(current_year() + 1);
+        if current_month.get() == Month::December {
+            current_year.set(current_year.get() + 1);
         }
-        current_month.set(current_month().succ());
+        current_month.set(current_month.get().succ());
     };
     let decrement_year_on_click = move |_: MouseEvent| {
-        current_year.set(current_year() - 1);
+        current_year.set(current_year.get() - 1);
     };
     let increment_year_on_click = move |_: MouseEvent| {
-        current_year.set(current_year() + 1);
+        current_year.set(current_year.get() + 1);
     };
     view! {
-        <Show when=active>
+        <Show when=move || active.get()>
             <div class="leptos-material-datepicker">
                 <Elevation/>
                 <div class="datepicker-header">

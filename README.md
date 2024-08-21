@@ -48,4 +48,4 @@ To reduce compile time and save webpage load time, [disable default-features](ht
 
 ## `nightly` Note
 This library does not use `nightly` Rust to allow this library to work in projects that are using the stable Rust toolchain.
-Using Leptos with `nightly` Rust allows function-call syntax for Signals, instead of using `.get()` and `.set()`. This functionality is not essential to this library, so leptos-material will stick to Stable Rust for the foreseeable future.
+Using Leptos with `nightly` Rust allows function-call syntax for Signals, instead of using `.get()` and `.set()`. This functionality is not essential to this library, so leptos-material will stick to stable Rust for the foreseeable future.

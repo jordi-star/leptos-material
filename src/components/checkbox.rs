@@ -12,7 +12,7 @@ pub fn Checkbox(
     view! {
         <md-checkbox
             prop:checked=move || match get_checked {
-                Some(value) => value(),
+                Some(value) => value.get(),
                 None => false,
             }
 
