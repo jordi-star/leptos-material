@@ -49,3 +49,18 @@ To reduce compile time and save webpage load time, [disable default-features](ht
 ## `nightly` Note
 This library does not use `nightly` Rust to allow this library to work in projects that are using the stable Rust toolchain.
 Using Leptos with `nightly` Rust allows function-call syntax for Signals, instead of using `.get()` and `.set()`. This functionality is not essential to this library, so leptos-material will stick to stable Rust for the foreseeable future.
+
+## Work in progress
+This library is a work in progress, and does not currently implement *all* MWC components.
+Here's a list of all currently implemented feature-flags:
+* checkbox
+* textfield
+* button
+* icon
+* iconbutton
+* card
+* elevation
+* progress
+* datepicker
+* select
+* chips
