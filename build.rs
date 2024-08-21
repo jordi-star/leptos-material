@@ -6,8 +6,8 @@ use std::{
     process::Command,
 };
 
-const IMPORTS_JS_FILE_NAME: &'static str = "imports.js";
-const OUTPUT_BUNDLE_FILE_NAME: &'static str = "output_bundle.js";
+const IMPORTS_JS_FILE_NAME: &str = "imports.js";
+const OUTPUT_BUNDLE_FILE_NAME: &str = "output_bundle.js";
 fn main() {
     // Only re-run if new features added.
     println!("cargo::rerun-if-changed=Cargo.toml");
@@ -18,10 +18,8 @@ fn main() {
         .create(true)
         .truncate(true)
         .open(&imports_file_path)
-        .expect(&format!(
-            "Unable to open {} file for writing",
-            imports_file_path
-        ));
+        .unwrap_or_else(|_| panic!("Unable to open {} file for writing",
+            imports_file_path));
     let output_path = format!(
         "{}/{}",
         env::var("OUT_DIR").unwrap(),
@@ -113,10 +111,8 @@ fn is_feature_enabled(feature: &str) -> bool {
 }
 
 fn add_import<T: std::io::Write>(to_import: &str, file: &mut T) {
-    writeln!(file, "import '@material/web/{}.js';", to_import).expect(&format!(
-        "Error adding import '{}' to imports.js",
-        to_import
-    ));
+    writeln!(file, "import '@material/web/{}.js';", to_import).unwrap_or_else(|_| panic!("Error adding import '{}' to imports.js",
+        to_import));
 }
 
 fn add_typescale_styles<T: std::io::Write>(file: &mut T) {

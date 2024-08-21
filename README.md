@@ -43,8 +43,5 @@ fn App() -> impl IntoView {
 
 
 ## Features
-Every component is gated behind a feature. This library only bundles what you need for each component used. When a feature for a component is added, leptos-material will automatically bundle that component's MWC code at compile time.
-
-<!-- | Component     | Status
-| ------------- |:-------------:|
-|       | |
+Every component is gated behind a feature. By default, this library will include all component's MWC code at compile time.
+To reduce compile time and save webpage load time, [disable default-features](https://doc.rust-lang.org/cargo/reference/features.html#dependency-features) and only add features related to the components you need.
