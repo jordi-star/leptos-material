@@ -43,9 +43,9 @@ fn App() -> impl IntoView {
 
 
 ## Features
-Every component is gated behind a feature. By default, this library will include all component's MWC code at compile time.
+Every component is gated behind a feature. This library will bundle any needed MWC components into a single JS file for use with `UseMaterialWebComponents`. By default, leptos-material uses the `full` feature, which will include all MWC components.
 To reduce compile time and save webpage load time, [disable default-features](https://doc.rust-lang.org/cargo/reference/features.html#dependency-features) and only add features related to the components you need.
 
 ## `nightly` Note
 This library does not use `nightly` Rust to allow this library to work in projects that are using the stable Rust toolchain.
-Using Leptos with `nightly` Rust allows function-call syntax for Signals, instead of using `.get()` and `.set()`. This functionality is not essential to this library, so `leptos-material` will stick to Stable Rust for the foreseeable future.
+Using Leptos with `nightly` Rust allows function-call syntax for Signals, instead of using `.get()` and `.set()`. This functionality is not essential to this library, so leptos-material will stick to Stable Rust for the foreseeable future.
