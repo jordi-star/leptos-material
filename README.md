@@ -14,6 +14,10 @@ instead, many components use `attr:attribute_name=value` syntax in the `view` ma
  attr:label="Email"
 >
 ```
+## Installing
+To install `leptos-material`, run the following command from your project directory:
+`cargo add leptos-material`
+Or, to use the latest repository updates in your project, add `leptos-material = { repository = "https://github.com/jordi-star/" }` to your Cargo.toml
 
 ## Using
 Use the `UseMaterialWebComponents` component at the root of your main component to initialize MWC.
