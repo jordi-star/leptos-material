@@ -41,7 +41,7 @@ pub fn UseMaterialWebComponents() -> impl IntoView {
             href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
         />
         <Style>"body { font-family = 'Roboto'; }"</Style>
-        <Script>{include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/output_bundle.js"))}</Script>
+        <Script>{include_str!(concat!(env!("OUT_DIR"), "/output_bundle.js"))}</Script>
         <Style>
 
             {#[cfg(feature = "card")] include_str!("components/css/card.css")}

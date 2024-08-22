@@ -10,8 +10,8 @@ const IMPORTS_JS_FILE_NAME: &str = "imports.js";
 const OUTPUT_BUNDLE_FILE_NAME: &str = "output_bundle.js";
 fn main() {
     // Only re-run if new features added.
-    println!("cargo::rerun-if-changed=Cargo.toml");
-    let imports_file_path = format!("{}/{}", env::var("CARGO_MANIFEST_DIR").unwrap(), IMPORTS_JS_FILE_NAME);
+    println!("cargo::rerun-if-changed=Cargo.toml,build.rs");
+    let imports_file_path = format!("{}/{}", env::var("OUT_DIR").unwrap(), IMPORTS_JS_FILE_NAME);
     println!("cargo::warning={:?}", imports_file_path);
     let mut imports_file: File = OpenOptions::new()
         .write(true)
@@ -22,17 +22,15 @@ fn main() {
             imports_file_path));
     let output_path = format!(
         "{}/{}",
-        env::var("CARGO_MANIFEST_DIR").unwrap(),
+        env::var("OUT_DIR").unwrap(),
         OUTPUT_BUNDLE_FILE_NAME
     );
 
     let npm_is_installed = run_command("npm -v").unwrap();
     assert!(npm_is_installed.success());
-    // Install globally so we can access the plugins outside of the current directory.
-    let install_rollup =
+    let _ =
         run_command("npm install rollup @rollup/plugin-node-resolve --global").unwrap();
-    assert!(install_rollup.success());
-    let install_mwc = run_command("npm install @material/web").unwrap();
+    let install_mwc = run_command("npm install @material/web --save-dev").unwrap();
     assert!(install_mwc.success());
 
     // Import typography stylesheet
@@ -78,9 +76,11 @@ fn main() {
     }
     add_typescale_styles(&mut imports_file);
     assert!(imports_file.sync_all().is_ok());
+    // Node modules are installed in the CARGO_MANIFEST_DIR instead of the OUT_DIR to prevent completely re-installing @material/web
+    // each time the build script is run.
     let run_rollup = run_command(&format!(
-        "npx rollup -p @rollup/plugin-node-resolve {} -o {} --format iife",
-        imports_file_path, output_path
+        r#"npx rollup -p 'node-resolve={{modulePaths: ["{}/node_modules/"]}}' {} -o {} --format iife"#,
+        env::var("CARGO_MANIFEST_DIR").unwrap(), imports_file_path, output_path
     ))
     .unwrap();
     assert!(run_rollup.success());
