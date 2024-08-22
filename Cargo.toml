@@ -1,5 +1,10 @@
 [package]
 name = "leptos-material"
+description = "A Leptos component wrapper for Material Web Components."
+repository = "https://github.com/jordi-star/leptos-material"
+readme = "README.md"
+keywords = ["leptos", "material", "design", "components", "ui"]
+categories = ["api-bindings", "wasm", "web-programming", "gui"]
 version = "0.1.0"
 edition = "2021"
 license = "MIT"
