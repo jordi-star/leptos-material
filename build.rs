@@ -11,7 +11,7 @@ const OUTPUT_BUNDLE_FILE_NAME: &str = "output_bundle.js";
 fn main() {
     // Only re-run if new features added.
     println!("cargo::rerun-if-changed=Cargo.toml");
-    let imports_file_path = format!("{}/{}", env::var("OUT_DIR").unwrap(), IMPORTS_JS_FILE_NAME);
+    let imports_file_path = format!("{}/{}", env::var("CARGO_MANIFEST_DIR").unwrap(), IMPORTS_JS_FILE_NAME);
     println!("cargo::warning={:?}", imports_file_path);
     let mut imports_file: File = OpenOptions::new()
         .write(true)
@@ -22,7 +22,7 @@ fn main() {
             imports_file_path));
     let output_path = format!(
         "{}/{}",
-        env::var("OUT_DIR").unwrap(),
+        env::var("CARGO_MANIFEST_DIR").unwrap(),
         OUTPUT_BUNDLE_FILE_NAME
     );
 
@@ -111,16 +111,13 @@ fn is_feature_enabled(feature: &str) -> bool {
 }
 
 fn add_import<T: std::io::Write>(to_import: &str, file: &mut T) {
-    writeln!(file, "import '@material/web/{}.js';", to_import).unwrap_or_else(|_| panic!("Error adding import '{}' to imports.js",
+    let _ = writeln!(file, "import '@material/web/{}.js';", to_import).unwrap_or_else(|_| panic!("Error adding import '{}' to imports.js",
         to_import));
 }
 
 fn add_typescale_styles<T: std::io::Write>(file: &mut T) {
     let _ = writeln!(
         file,
-        r#"
-	import {{styles as typescaleStyles}} from '@material/web/typography/md-typescale-styles.js';
-	document.adoptedStyleSheets.push(typescaleStyles.styleSheet)
-	"#
+        "import {{styles as typescaleStyles}} from '@material/web/typography/md-typescale-styles.js';\ndocument.adoptedStyleSheets.push(typescaleStyles.styleSheet)",
     );
 }
