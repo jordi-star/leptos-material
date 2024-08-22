@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "@material/web": "^1.5.1",
-    "@rollup/plugin-node-resolve": "^15.2.3",
-    "rollup": "^4.19.0"
-  }
-}
