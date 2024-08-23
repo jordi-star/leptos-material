@@ -5,7 +5,7 @@ repository = "https://github.com/jordi-star/leptos-material"
 readme = "README.md"
 keywords = ["leptos", "material", "design", "components", "ui"]
 categories = ["api-bindings", "wasm", "web-programming", "gui"]
-version = "0.6.0"
+version = "0.6.1"
 edition = "2021"
 license = "MIT"
 
