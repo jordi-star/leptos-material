@@ -1,4 +1,4 @@
-use leptos::{component, html, view, Children, IntoView};
+use leptos::{component, view, IntoView};
 /// [MWC Docs](https://material-web.dev/components/progress/)
 #[component]
 pub fn CircularProgress(#[prop(default = true)] indeterminate: bool) -> impl IntoView {

@@ -1,7 +1,7 @@
 use leptos::{
     component,
-    html::{self, Input},
-    slot, view, Attribute, AttributeValue, Binding, Children, IntoAttribute, IntoView, NodeRef,
+    html::{self},
+    slot, Attribute, Children, IntoAttribute, IntoView,
     RwSignal, SignalGet,
 };
 

@@ -1,4 +1,4 @@
-use leptos::{component, html, Attribute, Children, IntoAttribute, IntoView};
+use leptos::{component, html, Attribute, Children, IntoView};
 
 #[derive(Default)]
 pub enum ChipType {

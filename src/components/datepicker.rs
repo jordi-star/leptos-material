@@ -1,15 +1,10 @@
-use std::thread::current;
-use std::time::Instant;
 
 use crate::components::button::ButtonStyle;
 use crate::components::icon::Icon;
-use crate::components::select::SelectOption;
 use crate::components::{button::Button, button::ButtonType, iconbutton::IconButton};
-use chrono::Date;
 use chrono::Datelike;
 use chrono::Local;
 use chrono::NaiveDate;
-use leptos::ev::InputEvent;
 use leptos::html::Button;
 use leptos::DynAttrs;
 use leptos::RwSignal;
@@ -17,18 +12,14 @@ use leptos::Signal;
 use leptos::SignalGet;
 use leptos::SignalGetUntracked;
 use leptos::SignalSet;
-use leptos::{component, html, logging, view, Children, Class, CollectView, IntoClass, IntoView};
+use leptos::{component, view, CollectView, IntoView};
 use leptos::{
-    create_effect, create_node_ref, create_rw_signal, create_slice, IntoSignal, NodeRef, Show,
-    SignalSetter, SignalUpdate, WriteSignal,
+    create_effect, create_node_ref, create_rw_signal, Show, WriteSignal,
 };
-use leptos::{create_signal, ReadSignal};
-use leptos::{event_target_value, IntoAttribute};
-use web_sys::{HtmlElement, MouseEvent, ScrollIntoViewOptions, ScrollLogicalPosition};
+use web_sys::{MouseEvent, ScrollIntoViewOptions, ScrollLogicalPosition};
 // use time::{Date};
 
 use crate::components::elevation::Elevation;
-use crate::components::select::Select;
 
 pub use chrono::Month;
 
@@ -238,7 +229,7 @@ pub fn DatePicker(
                 view! {
                     <DayNumber
                         date=date
-                        date_picker_current_selected_date=selected_date.clone()
+                        date_picker_current_selected_date=selected_date
                         set_currently_viewed_month=current_month.write_only()
                         is_outside_month=true
                     />
@@ -256,7 +247,7 @@ pub fn DatePicker(
             view! {
                 <DayNumber
                     date=date
-                    date_picker_current_selected_date=selected_date.clone()
+                    date_picker_current_selected_date=selected_date
                     set_currently_viewed_month=current_month.write_only()
                     is_outside_month=false
                 />
@@ -283,7 +274,7 @@ pub fn DatePicker(
             view! {
                 <DayNumber
                     date=date
-                    date_picker_current_selected_date=selected_date.clone()
+                    date_picker_current_selected_date=selected_date
                     set_currently_viewed_month=current_month.write_only()
                     is_outside_month=true
                 />

@@ -106,12 +106,12 @@ pub fn run_command(command: &str) -> Result<std::process::ExitStatus, io::Error>
 }
 
 fn is_feature_enabled(feature: &str) -> bool {
-    let feature = String::from(feature).to_uppercase().replace("-", "_");
+    let feature = String::from(feature).to_uppercase().replace('-', "_");
     env::var(format!("CARGO_FEATURE_{}", feature)).is_ok()
 }
 
 fn add_import<T: std::io::Write>(to_import: &str, file: &mut T) {
-    let _ = writeln!(file, "import '@material/web/{}.js';", to_import).unwrap_or_else(|_| panic!("Error adding import '{}' to imports.js",
+    writeln!(file, "import '@material/web/{}.js';", to_import).unwrap_or_else(|_| panic!("Error adding import '{}' to imports.js",
         to_import));
 }
 

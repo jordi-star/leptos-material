@@ -1,4 +1,4 @@
-use leptos::{component, view, IntoView, ReadSignal};
+use leptos::{component, view, IntoView};
 
 /// Icon element. See [Material Symbols](https://fonts.google.com/icons) for icon options.
 /// Icon names are `snake_case`.

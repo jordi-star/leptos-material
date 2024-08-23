@@ -13,7 +13,7 @@
 //! ```
 
 #![allow(non_snake_case)] // allow camel case component names
-use leptos::{view, Attribute, Binding, IntoView};
+use leptos::{view, IntoView};
 use leptos_meta::*;
 pub mod components;
 

@@ -1,4 +1,4 @@
-use leptos::{component, html, slot, view, Children, ChildrenFn, IntoView};
+use leptos::{component, slot, view, Children, ChildrenFn, IntoView};
 
 use crate::components::elevation::Elevation;
 
@@ -29,7 +29,7 @@ pub fn Card(
     #[prop(optional)] headline: Option<Headline>,
     children: Children,
 ) -> impl IntoView {
-    let elevation = style.eq(&CardStyle::Elevated).then(|| Elevation());
+    let elevation = style.eq(&CardStyle::Elevated).then(Elevation);
     let classes = format!("leptos-material-card {}", style.get_class_name());
     let headline_view = headline.map(|value| {
         view! { <div class="leptos-material-card-headline">{(value.children)()}</div> }
